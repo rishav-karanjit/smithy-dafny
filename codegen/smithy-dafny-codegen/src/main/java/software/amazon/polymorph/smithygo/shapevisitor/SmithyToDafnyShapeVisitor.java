@@ -36,6 +36,7 @@ import software.amazon.smithy.model.shapes.TimestampShape;
 import software.amazon.smithy.model.shapes.UnionShape;
 import software.amazon.smithy.model.traits.EnumTrait;
 import software.amazon.smithy.model.traits.ErrorTrait;
+import software.amazon.smithy.model.traits.RangeTrait;
 import software.amazon.smithy.utils.CaseUtils;
 import software.amazon.smithy.utils.StringUtils;
 
@@ -152,15 +153,25 @@ public class SmithyToDafnyShapeVisitor extends ShapeVisitor.Default<String> {
         builder.append("%1$s(".formatted(companionStruct));
         String fieldSeparator = ",";
         for (final var memberShapeEntry : shape.getAllMembers().entrySet()) {
+            // System.out.println("Pointer:"+isPointerType);
             final var memberName = memberShapeEntry.getKey();
             final var memberShape = memberShapeEntry.getValue();
             final var targetShape = context.model().expectShape(memberShape.getTarget());
-            builder.append("%1$s%2$s".formatted(
+            // System.out.println("\n\n\n\n Smithy to Dafny Shape Visitor:" + targetShape + targetShape.hasTrait(RangeTrait.class));
+            if(targetShape.hasTrait(RangeTrait.class))
+                builder.append("%1$s%2$s".formatted(
                     targetShape.accept(
                             new SmithyToDafnyShapeVisitor(context, dataSource + "." + StringUtils.capitalize(memberName),
-                                                          writer, isConfigShape, memberShape.isOptional(), true
+                                                          writer, isConfigShape, memberShape.isOptional(), false
                                                           )), fieldSeparator
-            ));
+                ));
+            else
+                builder.append("%1$s%2$s".formatted(
+                        targetShape.accept(
+                                new SmithyToDafnyShapeVisitor(context, dataSource + "." + StringUtils.capitalize(memberName),
+                                                            writer, isConfigShape, memberShape.isOptional(), true
+                                                            )), fieldSeparator
+                ));
         }
 
 
@@ -339,6 +350,9 @@ public class SmithyToDafnyShapeVisitor extends ShapeVisitor.Default<String> {
             someWrapIfRequired = "Wrappers.Companion_Option_.Create_Some_(%s%s)";
             returnType = "Wrappers.Option";
         }
+
+        // System.out.println("\n\n\n\n Smithy to Dafny Shape Visitor:" + shape.getId());
+        // System.out.println(isPointerType);
 
         var dereferenceIfRequired = isPointerType ? "*" : "";
         var nilCheck = "";

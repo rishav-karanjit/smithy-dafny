@@ -21,6 +21,7 @@ import software.amazon.smithy.model.shapes.TimestampShape;
 import software.amazon.smithy.model.shapes.UnionShape;
 import software.amazon.smithy.model.traits.EnumTrait;
 import software.amazon.smithy.model.traits.ErrorTrait;
+import software.amazon.smithy.model.traits.RangeTrait;
 import software.amazon.smithy.utils.StringUtils;
 
 public class DafnyToSmithyShapeVisitor extends ShapeVisitor.Default<String> {
@@ -237,6 +238,16 @@ public class DafnyToSmithyShapeVisitor extends ShapeVisitor.Default<String> {
 
     @Override
     public String integerShape(IntegerShape shape) {
+        // System.out.println("\n\n\n\n");
+        // System.out.println(shape.getId());
+        if (shape.hasTrait(RangeTrait.class)) {
+            return ("""
+                func() int32 {
+                    var b int32
+                    b = %s.(int32)
+                    return b
+                }()""").formatted(dataSource);
+        }
         return ("""
                 func() *int32 {
                     var b int32
