@@ -30,6 +30,7 @@ import software.amazon.smithy.model.shapes.ShapeId;
 import software.amazon.smithy.model.shapes.ShapeType;
 import software.amazon.smithy.model.shapes.ToShapeId;
 import software.amazon.smithy.model.traits.EnumTrait;
+import software.amazon.smithy.model.traits.RequiredTrait;
 import software.amazon.smithy.model.traits.StreamingTrait;
 import software.amazon.smithy.utils.SetUtils;
 
@@ -112,24 +113,35 @@ public class GoPointableIndex implements KnowledgeIndex {
                 MemberShape member = shape.asMemberShape().get();
                 Shape targetShape = model.expectShape(member.getTarget());
 
+
                 if (isMemberPointable(member, targetShape)) {
+                    // System.out.println("isMemberPointable");
                     pointableShapes.add(shape.getId());
                 }
                 if (isMemberNillable(member, targetShape)) {
+                    // System.out.println("isMemberNillable");
                     nillableShapes.add(shape.getId());
                 }
                 if (isMemberDereferencable(member, targetShape)) {
+                    // System.out.println("isMemberDereferencable");
                     dereferencableShapes.add(shape.getId());
                 }
+                // if (!member.hasTrait(RequiredTrait.class)){
+                //     System.out.println(member);
+                //     System.out.println(targetShape.getType());
+                // }
             } else {
                 if (isShapePointable(shape)) {
+                    // System.out.println("isShapePointable");
                     pointableShapes.add(shape.getId());
                     nillableShapes.add(shape.getId());
                 }
                 if (isShapeNillable(shape)) {
+                    // System.out.println("isShapeNillable");
                     nillableShapes.add(shape.getId());
                 }
                 if (isShapeDereferencable(shape)) {
+                    // System.out.println("isShapeDereferencable");
                     dereferencableShapes.add(shape.getId());
                 }
             }
@@ -149,16 +161,19 @@ public class GoPointableIndex implements KnowledgeIndex {
     }
 
     private boolean isMemberPointable(MemberShape member, Shape targetShape) {
-
         // Streamed blob shapes are never pointers because they are interfaces
         if (isBlobStream(targetShape)) {
             return false;
         }
-
+        
         if (INHERENTLY_VALUE.contains(targetShape.getType())) {
             return false;
         }
 
+        if (!member.hasTrait(RequiredTrait.class) && !INHERENTLY_VALUE.contains(member.getType())){
+            return true;
+        }
+        
         return nullableIndex.isMemberNullable(member, NullableIndex.CheckMode.CLIENT_ZERO_VALUE_V1_NO_INPUT);
     }
 
