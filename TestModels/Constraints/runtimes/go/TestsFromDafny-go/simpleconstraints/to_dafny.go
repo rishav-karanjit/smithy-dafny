@@ -3,7 +3,6 @@
 package simpleconstraints
 
 import (
-	"fmt"
 	"unicode/utf8"
 
 	"github.com/Smithy-dafny/TestModels/Constraints/simpleconstraintsinternaldafnytypes"
@@ -428,18 +427,16 @@ func Error_ToDafny(err error) simpleconstraintsinternaldafnytypes.Error {
 	case simpleconstraintstypes.CollectionOfErrors:
 		return CollectionOfErrors_Input_ToDafny(err.(simpleconstraintstypes.CollectionOfErrors))
 	
-	case simpleconstraintstypes.OpaqueError:
-		return OpaqueError_Input_ToDafny(err.(simpleconstraintstypes.OpaqueError))
 	default:
-		fmt.Println(err.(simpleconstraintstypes.OpaqueError))
-		msg , ok := (err).(simpleconstraintstypes.OpaqueError)
+		error, ok := err.(*simpleconstraintstypes.OpaqueError)
+
 		if !ok {
-			fmt.Println(msg)
+			panic("Error is not an OpaqueError")
 		}
-		// opaqueErr := &simpleconstraintstypes.OpaqueError{
-		// 	ErrObject: err,
-		// }
-		return OpaqueError_Input_ToDafny(err.(simpleconstraintstypes.OpaqueError))
+		if error == nil {
+			panic("Error is nil")
+		}
+		return OpaqueError_Input_ToDafny(*error)
 	}
 }
 

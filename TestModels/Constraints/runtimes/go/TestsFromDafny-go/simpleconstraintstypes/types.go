@@ -3,7 +3,7 @@
 package simpleconstraintstypes
 
 import (
-	// "fmt"
+	"fmt"
 	"errors"
 )
 
@@ -45,125 +45,125 @@ type GetConstraintsInput struct {
 	StringLessThanOrEqualToTen *string
 }
 
-func (input GetConstraintsInput) Validate() *OpaqueError {
-	err := errors.New("something went wrong")
-	opaqueErr := &OpaqueError{
-		ErrObject: err,
+func (input GetConstraintsInput) Validate() error {
+	// err := errors.New("something went wrong")
+	// opaqueErr := &OpaqueError{
+	// 	ErrObject: fmt.Errorf("BlobLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.BlobLessThanOrEqualToTen)),
+	// }
+	// return opaqueErr
+	if len(input.BlobLessThanOrEqualToTen) > 10 {
+		return fmt.Errorf("BlobLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.BlobLessThanOrEqualToTen))
 	}
-	return opaqueErr
-	// if len(input.BlobLessThanOrEqualToTen) > 10 {
-	// 	return fmt.Errorf("BlobLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.BlobLessThanOrEqualToTen))
-	// }
 
-	// if input.GreaterThanOne != nil {
-	// 	if *input.GreaterThanOne < 1 {
-	// 		return fmt.Errorf("GreaterThanOne has a minimum of 1 but has the value of %d.", *input.GreaterThanOne)
-	// 	}
-	// }
+	if input.GreaterThanOne != nil {
+		if *input.GreaterThanOne < 1 {
+			return fmt.Errorf("GreaterThanOne has a minimum of 1 but has the value of %d.", *input.GreaterThanOne)
+		}
+	}
 
-	// if input.LessThanTen != nil {
-	// 	if *input.LessThanTen > 10 {
-	// 		return fmt.Errorf("LessThanTen has a maximum of 10 but has the value of %d.", *input.LessThanTen)
-	// 	}
-	// }
+	if input.LessThanTen != nil {
+		if *input.LessThanTen > 10 {
+			return fmt.Errorf("LessThanTen has a maximum of 10 but has the value of %d.", *input.LessThanTen)
+		}
+	}
 
-	// if len(input.ListLessThanOrEqualToTen) > 10 {
-	// 	return fmt.Errorf("ListLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.ListLessThanOrEqualToTen))
-	// }
+	if len(input.ListLessThanOrEqualToTen) > 10 {
+		return fmt.Errorf("ListLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.ListLessThanOrEqualToTen))
+	}
 
-	// if len(input.MapLessThanOrEqualToTen) > 10 {
-	// 	return fmt.Errorf("MapLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.MapLessThanOrEqualToTen))
-	// }
+	if len(input.MapLessThanOrEqualToTen) > 10 {
+		return fmt.Errorf("MapLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.MapLessThanOrEqualToTen))
+	}
 
-	// if len(input.MyBlob) < 1 {
-	// 	return fmt.Errorf("MyBlob has a minimum length of 1 but has the length of %d.", len(input.MyBlob))
-	// }
-	// if len(input.MyBlob) > 10 {
-	// 	return fmt.Errorf("MyBlob has a maximum length of 10 but has the length of %d.", len(input.MyBlob))
-	// }
+	if len(input.MyBlob) < 1 {
+		return fmt.Errorf("MyBlob has a minimum length of 1 but has the length of %d.", len(input.MyBlob))
+	}
+	if len(input.MyBlob) > 10 {
+		return fmt.Errorf("MyBlob has a maximum length of 10 but has the length of %d.", len(input.MyBlob))
+	}
 
-	// if len(input.MyList) < 1 {
-	// 	return fmt.Errorf("MyList has a minimum length of 1 but has the length of %d.", len(input.MyList))
-	// }
-	// if len(input.MyList) > 10 {
-	// 	return fmt.Errorf("MyList has a maximum length of 10 but has the length of %d.", len(input.MyList))
-	// }
+	if len(input.MyList) < 1 {
+		return fmt.Errorf("MyList has a minimum length of 1 but has the length of %d.", len(input.MyList))
+	}
+	if len(input.MyList) > 10 {
+		return fmt.Errorf("MyList has a maximum length of 10 but has the length of %d.", len(input.MyList))
+	}
 
-	// if len(input.MyListOfUtf8Bytes) < 1 {
-	// 	return fmt.Errorf("ListOfUtf8Bytes has a minimum length of 1 but has the length of %d.", len(input.MyListOfUtf8Bytes))
-	// }
-	// if len(input.MyListOfUtf8Bytes) > 2 {
-	// 	return fmt.Errorf("ListOfUtf8Bytes has a maximum length of 2 but has the length of %d.", len(input.MyListOfUtf8Bytes))
-	// }
+	if len(input.MyListOfUtf8Bytes) < 1 {
+		return fmt.Errorf("ListOfUtf8Bytes has a minimum length of 1 but has the length of %d.", len(input.MyListOfUtf8Bytes))
+	}
+	if len(input.MyListOfUtf8Bytes) > 2 {
+		return fmt.Errorf("ListOfUtf8Bytes has a maximum length of 2 but has the length of %d.", len(input.MyListOfUtf8Bytes))
+	}
 
-	// if len(input.MyMap) < 1 {
-	// 	return fmt.Errorf("MyMap has a minimum length of 1 but has the length of %d.", len(input.MyMap))
-	// }
-	// if len(input.MyMap) > 10 {
-	// 	return fmt.Errorf("MyMap has a maximum length of 10 but has the length of %d.", len(input.MyMap))
-	// }
+	if len(input.MyMap) < 1 {
+		return fmt.Errorf("MyMap has a minimum length of 1 but has the length of %d.", len(input.MyMap))
+	}
+	if len(input.MyMap) > 10 {
+		return fmt.Errorf("MyMap has a maximum length of 10 but has the length of %d.", len(input.MyMap))
+	}
 
-	// if input.MyString != nil {
-	// 	if len(*input.MyString) < 1 {
-	// 		return fmt.Errorf("MyString has a minimum length of 1 but has the length of %d.", len(*input.MyString))
-	// 	}
-	// 	if len(*input.MyString) > 10 {
-	// 		return fmt.Errorf("MyString has a maximum length of 10 but has the length of %d.", len(*input.MyString))
-	// 	}
-	// }
+	if input.MyString != nil {
+		if len(*input.MyString) < 1 {
+			return fmt.Errorf("MyString has a minimum length of 1 but has the length of %d.", len(*input.MyString))
+		}
+		if len(*input.MyString) > 10 {
+			return fmt.Errorf("MyString has a maximum length of 10 but has the length of %d.", len(*input.MyString))
+		}
+	}
 
-	// if input.MyTenToTen != nil {
-	// 	if *input.MyTenToTen < -10 {
-	// 		return fmt.Errorf("TenToTen has a minimum of -10 but has the value of %d.", *input.MyTenToTen)
-	// 	}
-	// 	if *input.MyTenToTen > 10 {
-	// 		return fmt.Errorf("TenToTen has a maximum of 10 but has the value of %d.", *input.MyTenToTen)
-	// 	}
-	// }
+	if input.MyTenToTen != nil {
+		if *input.MyTenToTen < -10 {
+			return fmt.Errorf("TenToTen has a minimum of -10 but has the value of %d.", *input.MyTenToTen)
+		}
+		if *input.MyTenToTen > 10 {
+			return fmt.Errorf("TenToTen has a maximum of 10 but has the value of %d.", *input.MyTenToTen)
+		}
+	}
 
-	// if input.MyUtf8Bytes != nil {
-	// 	if len(*input.MyUtf8Bytes) < 1 {
-	// 		return fmt.Errorf("Utf8Bytes has a minimum length of 1 but has the length of %d.", len(*input.MyUtf8Bytes))
-	// 	}
-	// 	if len(*input.MyUtf8Bytes) > 10 {
-	// 		return fmt.Errorf("Utf8Bytes has a maximum length of 10 but has the length of %d.", len(*input.MyUtf8Bytes))
-	// 	}
-	// }
+	if input.MyUtf8Bytes != nil {
+		if len(*input.MyUtf8Bytes) < 1 {
+			return fmt.Errorf("Utf8Bytes has a minimum length of 1 but has the length of %d.", len(*input.MyUtf8Bytes))
+		}
+		if len(*input.MyUtf8Bytes) > 10 {
+			return fmt.Errorf("Utf8Bytes has a maximum length of 10 but has the length of %d.", len(*input.MyUtf8Bytes))
+		}
+	}
 
-	// if len(input.NonEmptyBlob) < 1 {
-	// 	return fmt.Errorf("NonEmptyBlob has a minimum length of 1 but has the length of %d.", len(input.NonEmptyBlob))
-	// }
+	if len(input.NonEmptyBlob) < 1 {
+		return fmt.Errorf("NonEmptyBlob has a minimum length of 1 but has the length of %d.", len(input.NonEmptyBlob))
+	}
 
-	// if len(input.NonEmptyList) < 1 {
-	// 	return fmt.Errorf("NonEmptyList has a minimum length of 1 but has the length of %d.", len(input.NonEmptyList))
-	// }
+	if len(input.NonEmptyList) < 1 {
+		return fmt.Errorf("NonEmptyList has a minimum length of 1 but has the length of %d.", len(input.NonEmptyList))
+	}
 
-	// if len(input.NonEmptyMap) < 1 {
-	// 	return fmt.Errorf("NonEmptyMap has a minimum length of 1 but has the length of %d.", len(input.NonEmptyMap))
-	// }
+	if len(input.NonEmptyMap) < 1 {
+		return fmt.Errorf("NonEmptyMap has a minimum length of 1 but has the length of %d.", len(input.NonEmptyMap))
+	}
 
-	// if input.NonEmptyString != nil {
-	// 	if len(*input.NonEmptyString) < 1 {
-	// 		return fmt.Errorf("NonEmptyString has a minimum length of 1 but has the length of %d.", len(*input.NonEmptyString))
-	// 	}
-	// }
+	if input.NonEmptyString != nil {
+		if len(*input.NonEmptyString) < 1 {
+			return fmt.Errorf("NonEmptyString has a minimum length of 1 but has the length of %d.", len(*input.NonEmptyString))
+		}
+	}
 
-	// if input.OneToTen != nil {
-	// 	if *input.OneToTen < 1 {
-	// 		return fmt.Errorf("OneToTen has a minimum of 1 but has the value of %d.", *input.OneToTen)
-	// 	}
-	// 	if *input.OneToTen > 10 {
-	// 		return fmt.Errorf("OneToTen has a maximum of 10 but has the value of %d.", *input.OneToTen)
-	// 	}
-	// }
+	if input.OneToTen != nil {
+		if *input.OneToTen < 1 {
+			return fmt.Errorf("OneToTen has a minimum of 1 but has the value of %d.", *input.OneToTen)
+		}
+		if *input.OneToTen > 10 {
+			return fmt.Errorf("OneToTen has a maximum of 10 but has the value of %d.", *input.OneToTen)
+		}
+	}
 
-	// if input.StringLessThanOrEqualToTen != nil {
-	// 	if len(*input.StringLessThanOrEqualToTen) > 10 {
-	// 		return fmt.Errorf("StringLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(*input.StringLessThanOrEqualToTen))
-	// 	}
-	// }
+	if input.StringLessThanOrEqualToTen != nil {
+		if len(*input.StringLessThanOrEqualToTen) > 10 {
+			return fmt.Errorf("StringLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(*input.StringLessThanOrEqualToTen))
+		}
+	}
 
-	// return nil
+	return nil
 }
 
 type GetConstraintsOutput struct {
@@ -204,126 +204,126 @@ type GetConstraintsOutput struct {
 	ThatTenToTen *int64
 }
 
-func (input GetConstraintsOutput) Validate() *OpaqueError {
-	// err := errors.New("something went wrong")
+func (input GetConstraintsOutput) Validate() error {
+	err := errors.New("something went wrong")
 	opaqueErr := &OpaqueError{
-		ErrObject: "err",
+		ErrObject: err,
 	}
 	return opaqueErr
 
-	// if len(input.BlobLessThanOrEqualToTen) > 10 {
-	// 	return fmt.Errorf("BlobLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.BlobLessThanOrEqualToTen))
-	// }
+	if len(input.BlobLessThanOrEqualToTen) > 10 {
+		return fmt.Errorf("BlobLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.BlobLessThanOrEqualToTen))
+	}
 
-	// if input.GreaterThanOne != nil {
-	// 	if *input.GreaterThanOne < 1 {
-	// 		return fmt.Errorf("GreaterThanOne has a minimum of 1 but has the value of %d.", *input.GreaterThanOne)
-	// 	}
-	// }
+	if input.GreaterThanOne != nil {
+		if *input.GreaterThanOne < 1 {
+			return fmt.Errorf("GreaterThanOne has a minimum of 1 but has the value of %d.", *input.GreaterThanOne)
+		}
+	}
 
-	// if input.LessThanTen != nil {
-	// 	if *input.LessThanTen > 10 {
-	// 		return fmt.Errorf("LessThanTen has a maximum of 10 but has the value of %d.", *input.LessThanTen)
-	// 	}
-	// }
+	if input.LessThanTen != nil {
+		if *input.LessThanTen > 10 {
+			return fmt.Errorf("LessThanTen has a maximum of 10 but has the value of %d.", *input.LessThanTen)
+		}
+	}
 
-	// if len(input.ListLessThanOrEqualToTen) > 10 {
-	// 	return fmt.Errorf("ListLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.ListLessThanOrEqualToTen))
-	// }
+	if len(input.ListLessThanOrEqualToTen) > 10 {
+		return fmt.Errorf("ListLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.ListLessThanOrEqualToTen))
+	}
 
-	// if len(input.MapLessThanOrEqualToTen) > 10 {
-	// 	return fmt.Errorf("MapLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.MapLessThanOrEqualToTen))
-	// }
+	if len(input.MapLessThanOrEqualToTen) > 10 {
+		return fmt.Errorf("MapLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(input.MapLessThanOrEqualToTen))
+	}
 
-	// if len(input.MyBlob) < 1 {
-	// 	return fmt.Errorf("MyBlob has a minimum length of 1 but has the length of %d.", len(input.MyBlob))
-	// }
-	// if len(input.MyBlob) > 10 {
-	// 	return fmt.Errorf("MyBlob has a maximum length of 10 but has the length of %d.", len(input.MyBlob))
-	// }
+	if len(input.MyBlob) < 1 {
+		return fmt.Errorf("MyBlob has a minimum length of 1 but has the length of %d.", len(input.MyBlob))
+	}
+	if len(input.MyBlob) > 10 {
+		return fmt.Errorf("MyBlob has a maximum length of 10 but has the length of %d.", len(input.MyBlob))
+	}
 
-	// if len(input.MyList) < 1 {
-	// 	return fmt.Errorf("MyList has a minimum length of 1 but has the length of %d.", len(input.MyList))
-	// }
-	// if len(input.MyList) > 10 {
-	// 	return fmt.Errorf("MyList has a maximum length of 10 but has the length of %d.", len(input.MyList))
-	// }
+	if len(input.MyList) < 1 {
+		return fmt.Errorf("MyList has a minimum length of 1 but has the length of %d.", len(input.MyList))
+	}
+	if len(input.MyList) > 10 {
+		return fmt.Errorf("MyList has a maximum length of 10 but has the length of %d.", len(input.MyList))
+	}
 
-	// if len(input.MyListOfUtf8Bytes) < 1 {
-	// 	return fmt.Errorf("ListOfUtf8Bytes has a minimum length of 1 but has the length of %d.", len(input.MyListOfUtf8Bytes))
-	// }
-	// if len(input.MyListOfUtf8Bytes) > 2 {
-	// 	return fmt.Errorf("ListOfUtf8Bytes has a maximum length of 2 but has the length of %d.", len(input.MyListOfUtf8Bytes))
-	// }
+	if len(input.MyListOfUtf8Bytes) < 1 {
+		return fmt.Errorf("ListOfUtf8Bytes has a minimum length of 1 but has the length of %d.", len(input.MyListOfUtf8Bytes))
+	}
+	if len(input.MyListOfUtf8Bytes) > 2 {
+		return fmt.Errorf("ListOfUtf8Bytes has a maximum length of 2 but has the length of %d.", len(input.MyListOfUtf8Bytes))
+	}
 
-	// if len(input.MyMap) < 1 {
-	// 	return fmt.Errorf("MyMap has a minimum length of 1 but has the length of %d.", len(input.MyMap))
-	// }
-	// if len(input.MyMap) > 10 {
-	// 	return fmt.Errorf("MyMap has a maximum length of 10 but has the length of %d.", len(input.MyMap))
-	// }
+	if len(input.MyMap) < 1 {
+		return fmt.Errorf("MyMap has a minimum length of 1 but has the length of %d.", len(input.MyMap))
+	}
+	if len(input.MyMap) > 10 {
+		return fmt.Errorf("MyMap has a maximum length of 10 but has the length of %d.", len(input.MyMap))
+	}
 
-	// if input.MyString != nil {
-	// 	if len(*input.MyString) < 1 {
-	// 		return fmt.Errorf("MyString has a minimum length of 1 but has the length of %d.", len(*input.MyString))
-	// 	}
-	// 	if len(*input.MyString) > 10 {
-	// 		return fmt.Errorf("MyString has a maximum length of 10 but has the length of %d.", len(*input.MyString))
-	// 	}
-	// }
+	if input.MyString != nil {
+		if len(*input.MyString) < 1 {
+			return fmt.Errorf("MyString has a minimum length of 1 but has the length of %d.", len(*input.MyString))
+		}
+		if len(*input.MyString) > 10 {
+			return fmt.Errorf("MyString has a maximum length of 10 but has the length of %d.", len(*input.MyString))
+		}
+	}
 
-	// if input.MyUtf8Bytes != nil {
-	// 	if len(*input.MyUtf8Bytes) < 1 {
-	// 		return fmt.Errorf("Utf8Bytes has a minimum length of 1 but has the length of %d.", len(*input.MyUtf8Bytes))
-	// 	}
-	// 	if len(*input.MyUtf8Bytes) > 10 {
-	// 		return fmt.Errorf("Utf8Bytes has a maximum length of 10 but has the length of %d.", len(*input.MyUtf8Bytes))
-	// 	}
-	// }
+	if input.MyUtf8Bytes != nil {
+		if len(*input.MyUtf8Bytes) < 1 {
+			return fmt.Errorf("Utf8Bytes has a minimum length of 1 but has the length of %d.", len(*input.MyUtf8Bytes))
+		}
+		if len(*input.MyUtf8Bytes) > 10 {
+			return fmt.Errorf("Utf8Bytes has a maximum length of 10 but has the length of %d.", len(*input.MyUtf8Bytes))
+		}
+	}
 
-	// if len(input.NonEmptyBlob) < 1 {
-	// 	return fmt.Errorf("NonEmptyBlob has a minimum length of 1 but has the length of %d.", len(input.NonEmptyBlob))
-	// }
+	if len(input.NonEmptyBlob) < 1 {
+		return fmt.Errorf("NonEmptyBlob has a minimum length of 1 but has the length of %d.", len(input.NonEmptyBlob))
+	}
 
-	// if len(input.NonEmptyList) < 1 {
-	// 	return fmt.Errorf("NonEmptyList has a minimum length of 1 but has the length of %d.", len(input.NonEmptyList))
-	// }
+	if len(input.NonEmptyList) < 1 {
+		return fmt.Errorf("NonEmptyList has a minimum length of 1 but has the length of %d.", len(input.NonEmptyList))
+	}
 
-	// if len(input.NonEmptyMap) < 1 {
-	// 	return fmt.Errorf("NonEmptyMap has a minimum length of 1 but has the length of %d.", len(input.NonEmptyMap))
-	// }
+	if len(input.NonEmptyMap) < 1 {
+		return fmt.Errorf("NonEmptyMap has a minimum length of 1 but has the length of %d.", len(input.NonEmptyMap))
+	}
 
-	// if input.NonEmptyString != nil {
-	// 	if len(*input.NonEmptyString) < 1 {
-	// 		return fmt.Errorf("NonEmptyString has a minimum length of 1 but has the length of %d.", len(*input.NonEmptyString))
-	// 	}
-	// }
+	if input.NonEmptyString != nil {
+		if len(*input.NonEmptyString) < 1 {
+			return fmt.Errorf("NonEmptyString has a minimum length of 1 but has the length of %d.", len(*input.NonEmptyString))
+		}
+	}
 
-	// if input.OneToTen != nil {
-	// 	if *input.OneToTen < 1 {
-	// 		return fmt.Errorf("OneToTen has a minimum of 1 but has the value of %d.", *input.OneToTen)
-	// 	}
-	// 	if *input.OneToTen > 10 {
-	// 		return fmt.Errorf("OneToTen has a maximum of 10 but has the value of %d.", *input.OneToTen)
-	// 	}
-	// }
+	if input.OneToTen != nil {
+		if *input.OneToTen < 1 {
+			return fmt.Errorf("OneToTen has a minimum of 1 but has the value of %d.", *input.OneToTen)
+		}
+		if *input.OneToTen > 10 {
+			return fmt.Errorf("OneToTen has a maximum of 10 but has the value of %d.", *input.OneToTen)
+		}
+	}
 
-	// if input.StringLessThanOrEqualToTen != nil {
-	// 	if len(*input.StringLessThanOrEqualToTen) > 10 {
-	// 		return fmt.Errorf("StringLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(*input.StringLessThanOrEqualToTen))
-	// 	}
-	// }
+	if input.StringLessThanOrEqualToTen != nil {
+		if len(*input.StringLessThanOrEqualToTen) > 10 {
+			return fmt.Errorf("StringLessThanOrEqualToTen has a maximum length of 10 but has the length of %d.", len(*input.StringLessThanOrEqualToTen))
+		}
+	}
 
-	// if input.ThatTenToTen != nil {
-	// 	if *input.ThatTenToTen < -10 {
-	// 		return fmt.Errorf("TenToTen has a minimum of -10 but has the value of %d.", *input.ThatTenToTen)
-	// 	}
-	// 	if *input.ThatTenToTen > 10 {
-	// 		return fmt.Errorf("TenToTen has a maximum of 10 but has the value of %d.", *input.ThatTenToTen)
-	// 	}
-	// }
+	if input.ThatTenToTen != nil {
+		if *input.ThatTenToTen < -10 {
+			return fmt.Errorf("TenToTen has a minimum of -10 but has the value of %d.", *input.ThatTenToTen)
+		}
+		if *input.ThatTenToTen > 10 {
+			return fmt.Errorf("TenToTen has a maximum of 10 but has the value of %d.", *input.ThatTenToTen)
+		}
+	}
 
-	// return nil
+	return nil
 }
 
 type SimpleConstraintsConfig struct {

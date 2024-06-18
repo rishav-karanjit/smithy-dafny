@@ -27,7 +27,10 @@ func NewClient(clientConfig simpleconstraintstypes.SimpleConstraintsConfig) (*Cl
 func (client *Client) GetConstraints(ctx context.Context, params simpleconstraintstypes.GetConstraintsInput) (*simpleconstraintstypes.GetConstraintsOutput, error) {
 	err := params.Validate()
 	if err != nil {
-		return nil, err
+		opaqueErr := &simpleconstraintstypes.OpaqueError{
+			ErrObject: err,
+		}
+		return nil, opaqueErr
 	}
 	var dafny_request simpleconstraintsinternaldafnytypes.GetConstraintsInput = GetConstraintsInput_ToDafny(params)
 	var dafny_response = client.DafnyClient.GetConstraints(dafny_request)
