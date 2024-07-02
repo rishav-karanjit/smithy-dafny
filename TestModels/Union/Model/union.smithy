@@ -28,7 +28,27 @@ structure GetUnionOutput {
 
 union MyUnion {
     IntegerValue: Integer,
-    StringValue: String
+    StringValue: String,
+    BooleanValue: Boolean,
+    BlobValue: Blob,
+    DoubleValue: Double,
+    LongValue: Long,
+    ListValue: SimpleStringList,
+    MapValue: SimpleMap,
+    StructureValue: SimpleStruture
+}
+
+structure SimpleStruture {
+  Intvalue: Integer
+}
+
+list SimpleStringList {
+  member: String
+}
+
+map SimpleMap {
+  key: String,
+  value: String
 }
 
 operation GetKnownValueUnion {
